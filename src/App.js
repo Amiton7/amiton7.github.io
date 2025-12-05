@@ -40,10 +40,8 @@ function Home() {
               Research Engineer II @ Convrse AI
             </p>
             <p className="text-sm sm:text-base text-slate-700 mb-4">
-              I work at the intersections of geometry and artificial
-              intelligence. I&apos;m fascinated by text-conditioned 3D
-              generation and aspire to contribute towards trustworthy
-              text-to-3D models in the near future. I'm driven by curiosity to construct solutions, dig into every 'why' and then challenge the limits with a 'why not?'.
+              I'm a geometry-first person; geometric reasoning feels like a 3D version of playing blindfold chess. My research sits at the intersection of computer graphics and artificial
+              intelligence. I completed my undergraduate and postgraduate studies in Applied Mathematics at IIT Roorkee. Turning curious 'why's into practical 'why not's, keeps me grounded especially while chasing far-off research ideas.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <a
@@ -154,7 +152,7 @@ function Research() {
       areas: ["geometry", "ai"],
       title: "Trustworthy Text-to-3D Generation",
       description:
-        "Studying how text-conditioned 3D models fail, with a focus on systematic inconsistencies and ways to make their behaviour feel more reliable in practice. Planned submission to ICML 2026.",
+        "Evaluating text-to-3D architectures, on the basis of geometric consistency in latent representations.",
       kind: "independent",
       collaborators: [],
       linkHref: "",
@@ -167,9 +165,9 @@ function Research() {
       areas: ["ai"],
       title: "Single-shot Vision-only Jailbreaks through Phonetic Cues",
       description:
-        "Designing single-image, text-free jailbreaks for vision–language models using iconification and phonetic cues, to test how well safety filters hold up when only images are available.",
+        "Designed single-image, text-free jailbreak for vision–language models using iconification and phonetic cues, under the mentorship of Dr. Raj Dandekar. Vision-only jailbreaks tend to give rise to 'unintentional' harm in cases of ambiguity.",
       kind: "collab",
-      collaborators: ["Raj Dandekar"],
+      collaborators: ["Dr. Raj Dandekar"],
       linkHref: "",
       linkLabel: "",
     },
@@ -180,7 +178,7 @@ function Research() {
       areas: ["geometry", "ai"],
       title: "GNN-based 3D Mesh Decimation",
       description:
-        "Building a GNN-based mesh decimation algorithm that learns vertex weights for quadric error metrics, together with texture generation and remeshing tools used in production at Convrse AI.",
+        "Built a GNN-based mesh decimation algorithm that learns vertex weights for quadric error metrics, so as to preserve structural accuracy in extreme decimation.",
       kind: "collab",
       collaborators: [],
       linkHref: "",
@@ -193,9 +191,9 @@ function Research() {
       areas: ["geometry", "ai"],
       title: "Instance Segmentation of Dental Point Clouds",
       description:
-        "Implemented PointNet++ and Mask R-CNN for instance segmentation of 3D point clouds representing human teeth, as part of a dental imaging project with Prof. Wenping Wang.",
+        "Implemented PointNet++ and Mask R-CNN for instance segmentation of 3D point clouds representing human teeth, under the supervision of Prof. Wenping Wang.",
       kind: "collab",
-      collaborators: ["Wenping Wang"],
+      collaborators: ["Prof. Wenping Wang"],
       linkHref: "",
       linkLabel: "",
     },
@@ -206,9 +204,9 @@ function Research() {
       areas: ["geometry"],
       title: "Optimal UAV Path Traversal on Large Agricultural Land",
       description:
-        "Modelled UAV coverage of large agricultural plots as a geometric optimisation problem, and explored heuristics for near-optimal traversal paths that minimise overlap and turning overhead.",
+        "Designed and implemented optimal UAV path traversal algorithm for large agricultural areas using polygon decomposition and multi-UAV scheduling, under the co-supervision of Prof. Prajakta Nimbhorkar and Prof. Kavita Sutar.",
       kind: "collab",
-      collaborators: ["Prajakta Nimbhorkar", "Kavita Sutar", "Varun Ramanathan", "Ronak Chauhan"],
+      collaborators: ["Prof. Prajakta Nimbhorkar", "Prof. Kavita Sutar", "Varun Ramanathan", "Ronak Chauhan"],
       linkHref: "",
       linkLabel: "",
     },
@@ -472,7 +470,7 @@ function Blog() {
       type: "AI",
       title: "Foundational Generative AI Models: A Visual Comparison",
       description:
-        "A visual flowchart I made while taking Stanford XCS236, comparing core generative model families and how they connect. I use it as a teaching and self-study aid.",
+        "A visual flowchart from that compares foundational generative model families and how they connect, with analogies to everday cooking. As 'comparison' is perhaps the root of all scientific curiosity, this flowchart might develop interests in understanding deep generative models.",
       linkHref: "https://amiton7.github.io/generative-ai-flowchart/",
       linkLabel: "View the flowchart",
     },
@@ -554,7 +552,7 @@ function Fun() {
     {
       src: "/pics/art/2018-1.JPG",
       year: "2018",
-      title: "Blocks Illusion",
+      title: "3D Illusion",
       medium: "oil colours on wall",
     },
     {

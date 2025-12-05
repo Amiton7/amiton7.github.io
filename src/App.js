@@ -1,186 +1,688 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import profilePic from "./profile.jpg";
-const cvLink = "https://your-link-to-cv.pdf"; // Optional: Link to your CV
-const email = "bendkhale.amit@gmail.com"; // Replace with your email
+
+const cvLink = "https://drive.google.com/file/d/19vTejzVrmns6U6-UhrE1V13GkFa86OVd/view?usp=sharing";
+
+const NAV_ITEMS = [
+  { label: "Home", to: "/" },
+  { label: "Research", to: "/research" },
+  { label: "Teaching & Service", to: "/community" },
+  { label: "Blog", to: "/blog" },
+  { label: "Fun", to: "/fun" },
+];
 
 function Section({ title, children }) {
   return (
-    <section className="py-8">
-      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">{title}</h2>
-      {children}
-      <div className="mt-8 border-t border-slate-200" />
+    <section className="py-8 border-b border-slate-200 last:border-b-0">
+      <h2 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-4">
+        {title}
+      </h2>
+      <div className="space-y-3 text-sm sm:text-base text-slate-700">
+        {children}
+      </div>
     </section>
+  );
+}
+
+function Home() {
+  return (
+    <>
+      {/* Intro */}
+      <section className="pt-8 pb-8 border-b border-slate-200">
+        <div className="flex flex-col sm:flex-row items-start gap-7 mb-6">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2 tracking-tight">
+              Amit Bendkhale
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 mb-2">
+              Research Engineer II @ Convrse AI
+            </p>
+            <p className="text-sm sm:text-base text-slate-700 mb-4">
+              I work at the intersections of geometry and artificial
+              intelligence. I&apos;m fascinated by text-conditioned 3D
+              generation and aspire to contribute towards trustworthy
+              text-to-3D models in the near future. I'm driven by curiosity to construct solutions, dig into every 'why' and then challenge the limits with a 'why not?'.
+            </p>
+            <div className="flex flex-wrap gap-4 text-sm">
+              <a
+                href="https://www.linkedin.com/in/amit-bendkhale/"
+                className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaLinkedin className="h-4 w-4 text-[#0A66C2]" />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/Amiton7"
+                className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaGithub className="h-4 w-4 text-black" />
+                <span>GitHub</span>
+              </a>
+              {cvLink && (
+                <a
+                  href={cvLink}
+                  className="hover:underline text-slate-700 hover:text-slate-900"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  CV
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* News & Updates */}
+      <section className="py-8">
+        <h2 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-4">
+          News &amp; Updates
+        </h2>
+        <ul className="space-y-4 text-sm sm:text-base">
+          <li className="flex gap-3 items-start">
+            <span className="mt-0.5 text-lg" aria-hidden="true">
+              🎉
+            </span>
+            <div>
+              <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                20 Nov 2025
+              </div>
+              <div className="text-slate-700">
+                <span className="font-medium">
+                  Tri-Bench: Stress-Testing VLM Reliability on Spatial
+                  Reasoning under Camera Tilt and Object Interference
+                </span>{" "}
+                accepted at AAAI 2026 TrustAgent workshop.
+              </div>
+            </div>
+          </li>
+          <li className="flex gap-3 items-start">
+            <span className="mt-0.5 text-lg" aria-hidden="true">
+              🎓
+            </span>
+            <div>
+              <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                15 Aug 2025
+              </div>
+              <div className="text-slate-700">
+                Attended the 4th Neuro-Symbolic AI Summer School organized by
+                Centaur AI Institute.
+              </div>
+            </div>
+          </li>
+          <li className="flex gap-3 items-start">
+            <span className="mt-0.5 text-lg" aria-hidden="true">
+              🎓
+            </span>
+            <div>
+              <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                10 Aug 2025
+              </div>
+              <div className="text-slate-700">
+                Attended the Oxford Machine Learning Summer School on
+                Representation Learning and Generative AI.
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </>
+  );
+}
+
+function Research() {
+  const [collabFilter, setCollabFilter] = useState("");
+  const [areaFilter, setAreaFilter] = useState("");
+
+  const AREA_LABELS = {
+    geometry: "Geometry",
+    ai: "AI",
+    education: "Education",
+  };
+
+  const projects = [
+    {
+      id: "text3d",
+      year: "2025",
+      org: "Independent",
+      areas: ["geometry", "ai"],
+      title: "Trustworthy Text-to-3D Generation",
+      description:
+        "Studying how text-conditioned 3D models fail, with a focus on systematic inconsistencies and ways to make their behaviour feel more reliable in practice. Planned submission to ICML 2026.",
+      kind: "independent",
+      collaborators: [],
+      linkHref: "",
+      linkLabel: "",
+    },
+    {
+      id: "vlm-jailbreak",
+      year: "2025",
+      org: "Vizuara AI",
+      areas: ["ai"],
+      title: "Single-shot Vision-only Jailbreaks through Phonetic Cues",
+      description:
+        "Designing single-image, text-free jailbreaks for vision–language models using iconification and phonetic cues, to test how well safety filters hold up when only images are available.",
+      kind: "collab",
+      collaborators: ["Raj Dandekar"],
+      linkHref: "",
+      linkLabel: "",
+    },
+    {
+      id: "mesh-decimation",
+      year: "2024",
+      org: "Convrse AI",
+      areas: ["geometry", "ai"],
+      title: "GNN-based 3D Mesh Decimation",
+      description:
+        "Building a GNN-based mesh decimation algorithm that learns vertex weights for quadric error metrics, together with texture generation and remeshing tools used in production at Convrse AI.",
+      kind: "collab",
+      collaborators: [],
+      linkHref: "",
+      linkLabel: "",
+    },
+    {
+      id: "hku-teeth",
+      year: "2019",
+      org: "The University of Hong Kong",
+      areas: ["geometry", "ai"],
+      title: "Instance Segmentation of Dental Point Clouds",
+      description:
+        "Implemented PointNet++ and Mask R-CNN for instance segmentation of 3D point clouds representing human teeth, as part of a dental imaging project with Prof. Wenping Wang.",
+      kind: "collab",
+      collaborators: ["Wenping Wang"],
+      linkHref: "",
+      linkLabel: "",
+    },
+    {
+      id: "cmi-geometry",
+      year: "2018",
+      org: "Chennai Mathematical Institute",
+      areas: ["geometry"],
+      title: "Optimal UAV Path Traversal on Large Agricultural Land",
+      description:
+        "Modelled UAV coverage of large agricultural plots as a geometric optimisation problem, and explored heuristics for near-optimal traversal paths that minimise overlap and turning overhead.",
+      kind: "collab",
+      collaborators: ["Prajakta Nimbhorkar", "Kavita Sutar", "Varun Ramanathan", "Ronak Chauhan"],
+      linkHref: "",
+      linkLabel: "",
+    },
+  ];
+
+  const collaborators = Array.from(
+    new Set(projects.flatMap((p) => p.collaborators))
+  ).sort();
+
+  let visibleProjects = projects;
+
+  if (collabFilter === "independent") {
+    visibleProjects = visibleProjects.filter((p) => p.kind === "independent");
+  } else if (collabFilter) {
+    visibleProjects = visibleProjects.filter((p) =>
+      p.collaborators.includes(collabFilter)
+    );
+  }
+
+  if (areaFilter) {
+    visibleProjects = visibleProjects.filter((p) =>
+      p.areas.includes(areaFilter)
+    );
+  }
+
+  return (
+    <>
+      {/* Publication */}
+      <Section title="Publication">
+        <article className="space-y-3">
+          <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+            Workshop paper · Independent
+          </div>
+          <h3 className="text-base sm:text-lg font-semibold text-slate-800">
+            Tri-Bench: Stress-Testing VLM Reliability on Spatial Reasoning under
+            Camera Tilt and Object Interference
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500">
+            AAAI 2026 TrustAgent Workshop, accepted on 20 Nov 2025.
+          </p>
+          <p className="text-sm sm:text-base text-slate-700">
+            A benchmark to evaluate how robust vision–language models are to
+            camera tilt and object interference when they perform spatial
+            reasoning, with a focus on reliability and trustworthiness.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm pt-1">
+            <a
+              href="https://openreview.net/forum?id=5BnjL7Oj5C"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-sky-700 hover:text-sky-900"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-100 text-sky-700 text-xs font-semibold">
+                OR
+              </span>
+              <span>OpenReview</span>
+            </a>
+            <a
+              href="https://github.com/Amiton7/Tri-Bench"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900"
+            >
+              <FaGithub className="h-4 w-4 text-black" />
+              <span>Code</span>
+            </a>
+          </div>
+        </article>
+      </Section>
+
+      {/* Selected work */}
+      <Section title="Selected work">
+        <div className="flex flex-wrap gap-2 mb-2 text-xs sm:text-sm">
+          <select
+            value={collabFilter}
+            onChange={(e) => setCollabFilter(e.target.value)}
+            className="border border-slate-300 rounded-md px-2 py-1 bg-white text-slate-700"
+          >
+            <option value="">All collaborators</option>
+            <option value="independent">Independent</option>
+            {collaborators.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={areaFilter}
+            onChange={(e) => setAreaFilter(e.target.value)}
+            className="border border-slate-300 rounded-md px-2 py-1 bg-white text-slate-700"
+          >
+            <option value="">All areas</option>
+            <option value="geometry">Geometry</option>
+            <option value="ai">AI</option>
+            <option value="education">Education</option>
+          </select>
+        </div>
+
+        <ul className="space-y-4 text-sm sm:text-base">
+          {visibleProjects.map((project) => (
+            <li key={project.id} className="space-y-1">
+              <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                {project.year} · {project.org}
+              </div>
+              <h3 className="font-semibold text-slate-800">
+                {project.title}
+              </h3>
+              {project.areas && project.areas.length > 0 && (
+                <p className="text-xs text-slate-500">
+                  Areas:{" "}
+                  {project.areas
+                    .map((area) => AREA_LABELS[area] || area)
+                    .join(", ")}
+                </p>
+              )}
+              {project.collaborators.length > 0 && (
+                <p className="text-xs text-slate-500">
+                  Collaborator
+                  {project.collaborators.length > 1 ? "s" : ""}:{" "}
+                  {project.collaborators.join(", ")}
+                </p>
+              )}
+              <p className="text-slate-700">{project.description}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 text-xs sm:text-sm text-slate-500">
+          Other work includes projects at IIT Roorkee, Oracle, Myntra and
+          Eleuther AI. Please see CV for more comprehensive list.
+        </p>
+      </Section>
+    </>
+  );
+}
+
+
+
+function Community() {
+  return (
+    <>
+      <Section title="Teaching, community and service">
+        <ul className="space-y-4 text-sm sm:text-base">
+          
+          {/* 2022 - Asawari Open Library */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                Asawari Open Library 
+              </span>
+              <span className="text-xs text-slate-500">Ongoing</span>
+            </div>
+            <p className="text-xs text-slate-500">Volunteer · Pune, India</p>
+            <p className="text-slate-700">
+              Built a digital catalogue and a Telegram bot for book
+              recommendations with QR codes for quick manual updates. 
+              The "open" library is free of cost, 24x7 available to anyone without any restrictions.
+               Part of Open Library Movement.
+            </p>
+          </li>
+
+          {/* Ongoing - Vidyoday Muktangan Foundation */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                Vidyoday Muktangan Parivar Foundation
+              </span>
+              <span className="text-xs text-slate-500">Ongoing</span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Visiting teacher · Kolhapur, India
+            </p>
+            <p className="text-slate-700">
+              Teaching under-resourced students, about mathematics and artificial intelligence through experiments and
+              games. This is just a helping hand to the outstanding work by the Co-founder and CEO, Vinayak Mali.
+            </p>
+          </li>
+          
+          {/* 2025 - Games-Based Learning Virtual Conference */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                Games-Based Learning Virtual Conference
+              </span>
+              <span className="text-xs text-slate-500">2025</span>
+            </div>
+            <p className="text-slate-700">
+              Attended GBLVC 2025 to learn how educators design and integrate
+              game-based learning in classrooms, and to think about how
+              generative AI can help personalize meaningful educational games.
+            </p>
+          </li>
+
+          {/* 2024- TWIML Book Reading Club */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                Book Reading Club @ TWIML
+              </span>
+              <span className="text-xs text-slate-500">2024</span>
+            </div>
+            <p className="text-xs text-slate-500">Host</p>
+            <p className="text-slate-700">
+              Organized weekly online reading sessions for{" "}
+              <em>Deep Learning</em> by Goodfellow et al., creating a space for
+              accessible discussions in an international community of 100+ machine
+              learning students/practitioners.
+            </p>
+          </li>
+
+          {/* 2018 - IIT Roorkee Chess Club */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                IIT Roorkee Chess Club
+              </span>
+              <span className="text-xs text-slate-500">2018</span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Founding Vice President
+            </p>
+            <p className="text-slate-700">
+              Cultivated the first official chess club at IIT Roorkee and
+              worked as a tactics coach for National Sports Organisation
+              students, teaching combinatorial insights governing the game. Bagged several inter-collegiate awards.
+            </p>
+          </li>
+
+          {/* 2016 - National Service Scheme */}
+          <li className="space-y-1">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-semibold text-slate-800">
+                National Service Scheme
+              </span>
+              <span className="text-xs text-slate-500">2016</span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Member · IIT Roorkee NSS unit
+            </p>
+            <p className="text-slate-700">
+              Collected demographic data in Sherpur village near Roorkee and
+              helped households become aware about government schemes in education and
+              public health.
+            </p>
+          </li>
+        </ul>
+        <p className="mt-4 text-xs sm:text-sm text-slate-500">
+          Sparsely active on some of the "AI-based teaching" Google groups.
+        </p>
+      </Section>
+    </>
+  );
+}
+
+function Blog() {
+  const posts = [
+    {
+      id: "genai-flowchart",
+      year: "2025",
+      type: "AI",
+      title: "Foundational Generative AI Models: A Visual Comparison",
+      description:
+        "A visual flowchart I made while taking Stanford XCS236, comparing core generative model families and how they connect. I use it as a teaching and self-study aid.",
+      linkHref: "https://amiton7.github.io/generative-ai-flowchart/",
+      linkLabel: "View the flowchart",
+    },
+  ];
+
+  return (
+    <>
+      <Section title="Blog & notes">
+        <ul className="space-y-4 text-sm sm:text-base">
+          {posts.map((post) => (
+            <li key={post.id} className="space-y-1">
+              <div className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                {post.year} · {post.type}
+              </div>
+              <h3 className="font-semibold text-slate-800">{post.title}</h3>
+              <p className="text-slate-700">{post.description}</p>
+              {post.linkHref && (
+                <a
+                  href={post.linkHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-sm text-sky-700 hover:text-sky-900"
+                >
+                  {post.linkLabel}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </>
+  );
+}
+
+function Fun() {
+  const artPhotos = [
+    {
+      src: "/pics/art/2012-1.jpg",
+      year: "2012",
+      title: "Sunrise Surprise",
+      medium: "acrylic colours on paper",
+    },
+    {
+      src: "/pics/art/2013-3.jpg",
+      year: "2013",
+      title: "Golden Bird",
+      medium: "poster colours on paper",
+    },
+    {
+      src: "/pics/art/2013-4.jpg",
+      year: "2013",
+      title: "A Hut on a Hill",
+      medium: "poster colours on canvas",
+    },
+    {
+      src: "/pics/art/2016-1.jpg",
+      year: "2016",
+      title: "Disha Patani",
+      medium: "oil colours on canvas",
+    },
+    {
+      src: "/pics/art/2017-1.jpg",
+      year: "2017",
+      title: "Tony Stark",
+      medium: "oil colours on canvas",
+    },
+    {
+      src: "/pics/art/2017-2.jpg",
+      year: "2017",
+      title: "Sonali Bendre",
+      medium: "HB pencil on paper",
+    },
+    {
+      src: "/pics/art/2017-3.jpg",
+      year: "2017",
+      title: "Sherlock Holmes",
+      medium: "oil colour on wall",
+    },
+    {
+      src: "/pics/art/2018-1.JPG",
+      year: "2018",
+      title: "Blocks Illusion",
+      medium: "oil colours on wall",
+    },
+    {
+      src: "/pics/art/2019-1.jpg",
+      year: "2019",
+      title: "Joker",
+      medium: "oil colours on wall",
+    },
+    {
+      src: "/pics/art/2022-1.jpg",
+      year: "2022",
+      title: "Ideas Unbounded",
+      medium: "black pen on paper",
+    },
+  ];
+
+  return (
+    <>
+      <Section title="Fun">
+        <div className="space-y-6">
+          {/* Art */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold text-slate-800">Art</h3>
+            <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+              {artPhotos.map((photo) => (
+                <figure key={photo.src} className="flex flex-col group">
+                  <div className="relative overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
+                    <img
+                      src={photo.src}
+                      alt={
+                        photo.title ||
+                        photo.medium ||
+                        `Artwork from ${photo.year}`
+                      }
+                      className="w-full h-40 sm:h-48 object-contain"
+                    />
+                    {(photo.title || photo.medium) && (
+                      <div className="pointer-events-none absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center px-3">
+                        <div className="text-center">
+                          {photo.title && (
+                            <em className="block text-xs sm:text-sm text-slate-100 mb-1">
+                              {photo.title}
+                            </em>
+                          )}
+                          {photo.medium && (
+                            <span className="block text-[11px] sm:text-xs text-slate-100/90">
+                              {photo.medium}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <figcaption className="mt-1 text-xs text-slate-500">
+                    {photo.year}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-4 text-xs text-slate-400">
+          Other hobbies such as music, sports, travel and reading will be added
+          soon.
+        </p>
+      </Section>
+    </>
   );
 }
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#f6f8fa] font-sans text-slate-800">
-      <div className="max-w-3xl mx-auto px-3 sm:px-6 pt-12 pb-10">
-        {/* Header */}
-        <header className="flex flex-col sm:flex-row items-center gap-7 mb-12">
-          <img
-            src={profilePic}
-            alt="Amit Bendkhale"
-            className="w-32 h-40 object-cover rounded-xl"
-            style={{ background: "#e3e7ed" }}
-          />
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">
-              Amit Bendkhale
-            </h1>
-            <div className="text-slate-500 mb-2">
-              Research Engineer @ Convrse AI
-            </div>
-            <div className="flex gap-6 text-sky-700 text-base mt-3 mb-2">
-              <a
-                href="https://www.linkedin.com/in/amit-bendkhale/"
-                className="hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/Amiton7"
-                className="hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              {/* <a
-                href={`mailto:${email}`}
-                className="hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Email
-              </a> */}
-              {/* <a
-                href={cvLink}
-                className="hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CV
-              </a> */}
+    <Router>
+      <div className="min-h-screen bg-slate-50 text-slate-700 flex flex-col">
+        {/* Top nav */}
+        <header className="sticky top-0 z-10 border-b border-[#5e0f0f] bg-[#8c1515] text-red-50 shadow-sm">
+          <div className="w-full px-4 sm:px-6 lg:px-10">
+            <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
+              {/* Clickable brand goes home */}
+              <Link to="/" className="flex items-center gap-3 group">
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-red-100/60">
+                  <img
+                    src={profilePic}
+                    alt="Amit Bendkhale"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <span className="font-semibold text-red-50 text-base sm:text-lg group-hover:text-white">
+                  Amit Bendkhale
+                </span>
+              </Link>
+
+              <nav className="flex gap-3 sm:gap-4 text-sm sm:text-base">
+                {NAV_ITEMS.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="px-3.5 py-2 rounded-md text-red-50 hover:bg-white/10 hover:text-white transition-colors font-medium"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
           </div>
         </header>
 
-        <div className="border-t border-slate-200 mb-8" />
-
-        {/* Updates */}
-        <Section title="Updates">
-          <ul className="space-y-2">
-            <li>
-              <span className="font-medium text-slate-500 text-xs">8 June 2025:</span>
-              <span className="ml-2 text-slate-700">
-                Attended Games-Based Learning Virtual Conference (GBLVC) 2025.
-              </span>
-            </li>
-            <li>
-              <span className="font-medium text-slate-500 text-xs">19 May 2025:</span>
-              <span className="ml-2 text-slate-700">
-                Enrolled in Stanford Online XCS236: Deep Generative Models.
-              </span>
-            </li>
-            <li>
-              <span className="font-medium text-slate-500 text-xs">5 May 2025:</span>
-              <span className="ml-2 text-slate-700">
-                Started research on cross-modal injection attacks in LVLMs.
-              </span>
-            </li>
-          </ul>
-        </Section>
-
-        {/* Research */}
-        <Section title="Research">
-          <ul className="space-y-3">
-            <li>
-              <div className="font-semibold text-slate-900">
-                Survey: Diffusion of Thought vs Chain of Thought for Math Reasoning
-              </div>
-              <div className="text-slate-500 text-xs">Ongoing | Independent</div>
-              <div className="text-slate-700">
-                Documenting iterative refinement (DoT, DCoLT), explaining mechanics and comparing approaches.
-              </div>
-            </li>
-            <li>
-              <div className="font-semibold text-slate-900">
-                Stealthy Cross-Modal Prompt Injection Attack
-              </div>
-              <div className="text-slate-500 text-xs">Ongoing | Vizuara AI</div>
-              <div className="text-slate-700">
-                Identifying critical blind spots in LVLMs safety. Proposing cross-modal prompt injection techniques to bypass safety filters.
-              </div>
-            </li>
-          </ul>
-        </Section>
-
-        {/* Service & Activities */}
-        <Section title="Community">
-          <ul className="space-y-3">
-            <li>
-              <span className="font-semibold text-slate-900">
-                Founder/Host, Book Reading Club @ TWIML
-              </span>
-              <span className="ml-2 text-slate-500 text-xs">2024-2025</span>
-              <div className="text-slate-700">
-                Organized reading sessions for "Deep Learning" (Goodfellow et al.), built an open community around ML topics.
-              </div>
-            </li>
-            <li>
-              <span className="font-semibold text-slate-900">
-                Founding Vice President, IIT Roorkee Chess Club
-              </span>
-              <span className="ml-2 text-slate-500 text-xs">2018-2019</span>
-              <div className="text-slate-700">
-                Co-founded IIT Roorkee Chess Club. Tactics coach for National Sports Organisation students.
-              </div>
-            </li>
-            <li>
-              <span className="font-semibold text-slate-900">
-                Community Service, Shahpur Village, Roorkee
-              </span>
-              <span className="ml-2 text-slate-500 text-xs">2016-2017</span>
-              <div className="text-slate-700">
-                National Service Scheme: awareness drives, demographic data collection.
-              </div>
-            </li>
-          </ul>
-        </Section>
-
-        {/* Blogs/ Projects */}
-        <Section title="Blogs & Resources">
-          <ul className="space-y-3">
-            <li>
-              <a
-                href="https://amiton7.github.io/generative-ai-flowchart/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-slate-900 hover:text-sky-700"
-              >
-                Foundational Generative AI Models: A Visual Comparison
-              </a>
-              <span className="ml-2 text-slate-500 text-xs">2025</span>
-              <div className="text-slate-700">
-                Built a visualization chart for foundational generative models, to aid ongoing education and research.
-              </div>
-            </li>
-          </ul>
-          <div className="text-center text-slate-500 italic py-8">
-            I love to write intuitive explanations of scientific works and share any interesting scientific observations I encounter.
+        {/* Page content */}
+        <main className="flex-1 w-full px-4 sm:px-6 lg:px-10">
+          <div className="max-w-6xl mx-auto pt-6 pb-10">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/research" element={<Research />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/fun" element={<Fun />} />
+            </Routes>
           </div>
-        </Section>
+        </main>
 
         {/* Footer */}
-        <footer className="text-center pt-6 text-slate-400 text-xs">
-          &copy; 2025 Amit Bendkhale &middot; Last updated: Aug 2025
+        <footer className="border-t border-slate-200 py-4">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 text-center text-xs text-slate-400">
+            © {new Date().getFullYear()} Amit Bendkhale · Last updated: Dec 2025
+          </div>
         </footer>
       </div>
-    </div>
+    </Router>
   );
 }

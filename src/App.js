@@ -40,8 +40,10 @@ function Home() {
               Research Engineer II @ Convrse AI
             </p>
             <p className="text-sm sm:text-base text-slate-700 mb-4">
-              I'm a geometry-first person; geometric reasoning feels like a 3D version of playing blindfold chess. My research sits at the intersection of computer graphics and artificial
-              intelligence. I completed my undergraduate and postgraduate studies in Applied Mathematics at IIT Roorkee. Turning curious 'why's into practical 'why not's, keeps me grounded especially while chasing far-off research ideas.
+              I'm a geometry-first person, constantly fascinated by the mathematics behind geometric 
+              reasoning (its like a 3D version of playing blindfold chess).
+               I currently work at the intersection of computer graphics and artificial
+              intelligence, specifically text-to-3D architectures. I love turning a curious 'why' into a practical solution and then figuring out 'why not'.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <a

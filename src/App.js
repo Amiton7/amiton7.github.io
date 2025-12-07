@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import profilePic from "./profile.jpg";
 
-const cvLink = "https://drive.google.com/file/d/19vTejzVrmns6U6-UhrE1V13GkFa86OVd/view?usp=sharing";
+const cvLink = "https://drive.google.com/file/d/11JOdjh2SSflgKpyHoop9C1_caPgouyP6/view?usp=sharing";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },

@@ -41,10 +41,10 @@ function Home() {
               Research Engineer II @ Convrse AI
             </p>
             <p className="text-sm sm:text-base text-slate-700 mb-4">
-              I'm a geometry-first person, constantly fascinated by the mathematics behind geometric 
+              A geometry-first person, constantly fascinated by the mathematics behind geometric 
               reasoning (its like a 3D version of playing blindfold chess).
-               I currently work at the intersection of computer graphics and artificial
-              intelligence, specifically text-to-3D architectures. I love turning a curious 'why' into a practical solution and then figuring out 'why not'.
+               Currently works at the intersection of computer graphics and artificial
+              intelligence, specifically text-to-3D architectures. Loves turning a curious 'why' into a practical solution and then figuring out 'why not'.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
               <a
@@ -54,7 +54,6 @@ function Home() {
                 rel="noreferrer"
               >
                 <FaLinkedin className="h-4 w-4 text-[#0A66C2]" />
-                <span>LinkedIn</span>
               </a>
               <a
                 href="https://github.com/Amiton7"
@@ -63,7 +62,6 @@ function Home() {
                 rel="noreferrer"
               >
                 <FaGithub className="h-4 w-4 text-black" />
-                <span>GitHub</span>
               </a>
               {cvLink && (
                 <a
@@ -390,8 +388,8 @@ function Community() {
               Visiting teacher · Kolhapur, India
             </p>
             <p className="text-slate-700">
-              Teaching under-resourced students, about mathematics and artificial intelligence through experiments and
-              games. This is just a helping hand to the outstanding work by the Co-founder and CEO, Vinayak Mali.
+              Teaching under-resourced students and teachers, about mathematics and AI through visual experiments and
+              games.
             </p>
           </li>
           

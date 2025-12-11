@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiFileText } from "react-icons/fi";
 import profilePic from "./profile.jpg";
 
-const cvLink = "https://drive.google.com/file/d/11JOdjh2SSflgKpyHoop9C1_caPgouyP6/view?usp=sharing";
+const cvLink = "/cv.pdf";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/" },
@@ -254,28 +255,34 @@ function Research() {
             camera tilt and object interference when they perform spatial
             reasoning, with a focus on reliability and trustworthiness.
           </p>
-          <div className="flex flex-wrap gap-3 text-sm pt-1">
-            <a
-              href="https://openreview.net/forum?id=5BnjL7Oj5C"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-sky-700 hover:text-sky-900"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-100 text-sky-700 text-xs font-semibold">
-                OR
-              </span>
-              <span>OpenReview</span>
-            </a>
-            <a
-              href="https://github.com/Amiton7/Tri-Bench"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900"
-            >
-              <FaGithub className="h-4 w-4 text-black" />
-              <span>Code</span>
-            </a>
-          </div>
+         <div className="mt-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-600">
+          <a
+            href="https://arxiv.org/abs/2512.08860"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline underline-offset-2"
+          >
+            arXiv
+          </a>
+          <span>|</span>
+          <a
+            href="https://arxiv.org/pdf/2512.08860.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline underline-offset-2"
+          >
+            pdf
+          </a>
+          <span>|</span>
+          <a
+            href="https://github.com/Amiton7/Tri-Bench"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline underline-offset-2"
+          >
+            code &amp; dataset
+          </a>
+        </div>
         </article>
       </Section>
 
